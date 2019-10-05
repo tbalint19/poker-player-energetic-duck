@@ -7,6 +7,8 @@ class Player {
   static betRequest(gameState, bet) {
     const player = getPlayer(gameState);
 
+    if (theyAllSeemWeak(gameState)) return bet(4000)
+
     // Checks if we have pair in hand
     const pairValue = getPairValue(gameState);
     if (pairValue > 0) {
@@ -57,6 +59,10 @@ function getBothHandAndCommunity(gameState) {
   let a = getHand(gameState);
   let b = getCommunity(gameState);
   return a.concat(b);
+}
+
+function theyAllSeemWeak(gameState) {
+  return (gameState.current_buy_in < (gameState.small_blind * 5)) && gameState.orbit > 1
 }
 
 function getPairValue(gameState) {
