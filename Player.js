@@ -4,7 +4,12 @@ class Player {
   }
 
   static betRequest(gameState, bet) {
-    bet(4000);
+    const hand = getHand(gameState);
+    if (hand[0].rank === hand[1].rank) {
+      bet(4000);
+    } else {
+      bet(0);
+    }
   }
 
   static showdown(gameState) {
