@@ -9,6 +9,10 @@ class Player {
 
   static showdown(gameState) {
   }
+
+  getHand(gameState) {
+    gameState.players[gameState.in_action].hole_cards;
+  }
 }
 
 module.exports = Player;
