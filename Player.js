@@ -20,7 +20,7 @@ class Player {
       if (pairValue >= 10) {
         bet(4000); // max bet on pair 10 or above
       } else {
-        if (isAnotherPlayerAllIn(gameState)) {
+        if (isAnotherPlayerAllIn(gameState) && player.bet < 100) {
           bet(0);
         } else {
           bet(
