@@ -5,9 +5,14 @@
   "engines": {
     "node": "6.x"
   },
+  "scripts": {
+    "test": "jest"
+  },
   "private": true,
   "dependencies": {
+    "body-parser": "1.15.2",
     "express": "4.x",
-    "body-parser": "1.15.2"
-  }
+    "jest": "^24.9.0"
+  },
+  "devDependencies": {}
 }
