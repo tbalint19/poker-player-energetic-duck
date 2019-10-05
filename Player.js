@@ -18,7 +18,7 @@ class Player {
     if (theyAllSeemWeak(gameState)&&preFlop) return bet(gameState.current_buy_in * 2)
 
     // Checks if we have pair
-    const pairValue = getPairValue(getBothHandAndCommunity(gameState)) > getPairValue(getCommunity(gameState)) ? 
+    const pairValue = getPairValue(getBothHandAndCommunity(gameState)) > getPairValue(getCommunity(gameState)) ?
       getPairValue(getBothHandAndCommunity(gameState)) :
       getPairValue(getHand(gameState));
 
@@ -28,19 +28,17 @@ class Player {
       } else if (pairValue >= 10) {
         return bet(
           gameState.current_buy_in - player.bet + gameState.minimum_raise
-        );
+        ); // raise
       } else {
         if (isAnotherPlayerAllIn(gameState) && player.bet < 100) {
           return bet(0);
         } else {
-          return bet(
-            gameState.current_buy_in - player.bet + gameState.minimum_raise
-          ); // bet minimum
+          return bet(gameState.current_buy_in - player.bet); // call
         }
       }
     } else {
       if (preFlop && highCardInHand(gameState)) {
-        return bet(gameState.current_buy_in - player.bet);
+        return bet(gameState.current_buy_in - player.bet); // call
       } else {
         return bet(0); // no pair = no bet
       }
