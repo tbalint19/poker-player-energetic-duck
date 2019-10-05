@@ -126,7 +126,7 @@ function isAnotherPlayerAllIn(gameState) {
   let isOneAllIn = false;
 
   getOtherActivePlayers(gameState).forEach(player => {
-    if (player.bet === player.stack) {
+    if (player.stack === 0 && player.bet > 0) {
       isOneAllIn = true;
     }
   });
