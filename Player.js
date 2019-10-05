@@ -21,4 +21,19 @@ class Player {
   }
 }
 
+function rank2number(rank) {
+  switch(rank) {
+    case "A":
+      return 14;
+    case "K":
+      return 13;
+    case "Q":
+      return 12;
+    case "J": 
+      return 11;
+    default:
+      return rank*1;
+  }
+}
+
 module.exports = Player;
