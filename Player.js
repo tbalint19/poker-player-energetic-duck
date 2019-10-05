@@ -15,9 +15,13 @@ class Player {
       if (pairValue >= 10) {
         bet(4000); // max bet on pair 10 or above
       } else {
-        bet(
-          gameState.current_buy_in - player.bet + gameState.minimum_raise
-        ); // bet minimum
+        if (isAnotherPlayerAllIn(gameState)) {
+          bet(0);
+        } else {
+          bet(
+            gameState.current_buy_in - player.bet + gameState.minimum_raise
+          ); // bet minimum
+        }
       }
     } else {
       bet(0); // no pair = no bet
@@ -80,8 +84,22 @@ function getOtherActivePlayers(gameState) {
     const isOurPlayer = getPlayer(gameState).name === player.name;
     if (player.status === "active" && !isOurPlayer) {
       return [...acc, player];
+    } else {
+      return acc;
     }
   }, []);
+}
+
+function isAnotherPlayerAllIn(gameState) {
+  let isOneAllIn = false;
+
+  getOtherActivePlayers(gameState).forEach(player => {
+    if (player.bet === player.stack) {
+      isOneAllIn = true;
+    }
+  });
+
+  return isOneAllIn;
 }
 
 
