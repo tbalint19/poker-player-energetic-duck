@@ -5,10 +5,19 @@ class Player {
 
   // Game State URL: http://leanpoker.org/assets/player-api.json
   static betRequest(gameState, bet) {
-    bet(4000);
+    const hand = getHand(gameState);
+    if (hand[0].rank === hand[1].rank) {
+      bet(4000);
+    } else {
+      bet(0);
+    }
   }
 
   static showdown(gameState) {
+  }
+
+  static getHand(gameState) {
+    gameState.players[gameState.in_action].hole_cards;
   }
 }
 
