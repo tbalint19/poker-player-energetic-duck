@@ -56,3 +56,39 @@ test('should fold with low pair when another player is all in', () => {
   // then
   sinon.assert.calledWith(betMock, 0);
 });
+
+test('should go all in when three of kind with contributing hand', () => {
+  // given
+  const gameState = getDefaultGameState()
+  gameState.community_cards = [{ "rank": "6", "suit": "hearts" }];
+  gameState.players[gameState.in_action].hole_cards[0] = { "rank": "6", "suit": "hearts" }
+  gameState.players[gameState.in_action].hole_cards[1] = { "rank": "6", "suit": "spades" }
+  gameState.current_buy_in = 20
+  gameState.minimum_raise = 20
+  gameState.players[gameState.in_action].bet = 10
+  gameState.players[0].bet = gameState.players[0].stack
+
+  // when
+  Player.betRequest(gameState, betMock)
+
+  // then
+  sinon.assert.calledWith(betMock, 4000);
+});
+
+test('should not go all in when three of kind without contributing hand', () => {
+  // given
+  const gameState = getDefaultGameState()
+  gameState.community_cards = [{ "rank": "5", "suit": "hearts" }, { "rank": "5", "suit": "spades" }, { "rank": "5", "suit": "spades" }];
+  gameState.players[gameState.in_action].hole_cards[0] = { "rank": "7", "suit": "hearts" }
+  gameState.players[gameState.in_action].hole_cards[1] = { "rank": "6", "suit": "spades" }
+  gameState.current_buy_in = 20
+  gameState.minimum_raise = 20
+  gameState.players[gameState.in_action].bet = 10
+  gameState.players[0].bet = gameState.players[0].stack
+
+  // when
+  Player.betRequest(gameState, betMock)
+
+  // then
+  sinon.assert.calledWith(betMock, 40);
+});

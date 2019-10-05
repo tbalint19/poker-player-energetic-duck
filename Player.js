@@ -7,10 +7,15 @@ class Player {
   static betRequest(gameState, bet) {
     const player = getPlayer(gameState);
 
+    if (
+      getThreeOfAKindValue(getBothHandAndCommunity(gameState)) > getThreeOfAKindValue(getCommunity(gameState))) {
+      return bet(4000);
+    }
+
     if (theyAllSeemWeak(gameState)) return bet(gameState.current_buy_in * 2)
 
     // Checks if we have pair in hand
-    const pairValue = getPairValue(gameState);
+    const pairValue = getPairValue(getBothHandAndCommunity(gameState));
     if (pairValue > 0) {
       if (pairValue >= 10) {
         bet(4000); // max bet on pair 10 or above
@@ -75,14 +80,35 @@ function theyAllSeemWeak(gameState) {
   return (gameState.current_buy_in < (gameState.small_blind * 5))
 }
 
-function getPairValue(gameState) {
-  const hand = getHand(gameState);
-  const [cardInHand1 ,cardInHand2] = hand;
-  if(cardInHand1.rank === cardInHand2.rank) {
-    return rank2number(cardInHand1.rank);
-  } else {
+function getCardCounts(cards) {
+  const counts = new Map();
+  cards.forEach(card => {
+    const rank = rank2number(card.rank);
+    counts.set(rank, counts.has(rank) ? counts.get(rank) + 1 : 1);
+  });
+  return counts;
+}
+
+function getPairValue(cards) {
+  let counts = getCardCounts(cards);
+
+  const matches = Array.from(counts.entries()).filter(x => x[1] === 2);
+  if(matches.length > 0)
+    return Array.from(counts.entries())
+      .filter(x => x[1] === 2)
+      .sort((a, b) => b[1] - a[1])[0][0];
+  else 
     return 0;
-  }
+}
+
+function getThreeOfAKindValue(cards) {
+  let counts = getCardCounts(cards);
+  
+  const matches = Array.from(counts.entries()).filter(x => x[1] === 3);
+  if(matches.length > 0)
+    return matches.sort((a, b) => b[1] - a[1])[0][0];
+  else 
+    return 0;
 }
 
 function getOtherActivePlayers(gameState) {
