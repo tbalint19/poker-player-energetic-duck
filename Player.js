@@ -75,4 +75,14 @@ function getPairValue(gameState) {
   }
 }
 
+function getOtherActivePlayers(gameState) {
+  return gameState.players.reduce((acc, player) => {
+    const isOurPlayer = getPlayer(gameState).name === player.name;
+    if (player.status === "active" && !isOurPlayer) {
+      return [...acc, player];
+    }
+  }, []);
+}
+
+
 module.exports = Player;
