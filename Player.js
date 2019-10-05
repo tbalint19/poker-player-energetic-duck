@@ -37,9 +37,9 @@ class Player {
     } else {
       if (preFlop && highCardInHand(gameState)) {
         bet(gameState.current_buy_in - player.bet);
+      } else {
+        bet(0); // no pair = no bet
       }
-
-      bet(0); // no pair = no bet
     }
   }
 
