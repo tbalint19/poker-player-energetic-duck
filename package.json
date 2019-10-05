@@ -6,7 +6,8 @@
     "node": "6.x"
   },
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "test:watch": "jest --watch"
   },
   "private": true,
   "dependencies": {
