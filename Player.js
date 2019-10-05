@@ -55,4 +55,8 @@ function rank2number(rank) {
   }
 }
 
+function getPlayer(gameState) {
+  return gameState.players[gameState.in_action];
+}
+
 module.exports = Player;
