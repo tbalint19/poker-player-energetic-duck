@@ -12,7 +12,8 @@
   "dependencies": {
     "body-parser": "1.15.2",
     "express": "4.x",
-    "jest": "^24.9.0"
+    "jest": "^24.9.0",
+    "sinon": "^7.5.0"
   },
   "devDependencies": {}
 }
