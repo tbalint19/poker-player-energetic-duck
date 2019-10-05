@@ -41,6 +41,12 @@ function rank2number(rank) {
   }
 }
 
+/**
+ * Include these methods onto Player this way we can access them with require
+ * in external modules and tests
+ */
+Player.getPlayer = getPlayer;
+
 function getPlayer(gameState) {
   return gameState.players[gameState.in_action];
 }
