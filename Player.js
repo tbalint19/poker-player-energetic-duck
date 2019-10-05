@@ -7,6 +7,8 @@ class Player {
   static betRequest(gameState, bet) {
     const player = getPlayer(gameState);
 
+    if (gameState.small_blind * 4 > player.stack) return bet(4000);
+
     if (
       getThreeOfAKindValue(getBothHandAndCommunity(gameState)) > getThreeOfAKindValue(getCommunity(gameState))) {
       return bet(4000);
@@ -97,17 +99,17 @@ function getPairValue(cards) {
     return Array.from(counts.entries())
       .filter(x => x[1] === 2)
       .sort((a, b) => b[1] - a[1])[0][0];
-  else 
+  else
     return 0;
 }
 
 function getThreeOfAKindValue(cards) {
   let counts = getCardCounts(cards);
-  
+
   const matches = Array.from(counts.entries()).filter(x => x[1] === 3);
   if(matches.length > 0)
     return matches.sort((a, b) => b[1] - a[1])[0][0];
-  else 
+  else
     return 0;
 }
 
