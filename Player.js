@@ -1,6 +1,6 @@
 class Player {
   static get VERSION() {
-    return '0.1';
+    return '1.0';
   }
 
   // Game State URL: http://leanpoker.org/assets/player-api.json
