@@ -6,10 +6,19 @@ class Player {
   // Game State URL: http://leanpoker.org/assets/player-api.json
   static betRequest(gameState, bet) {
     const hand = Player.getHand(gameState);
-    if (hand[0].rank === hand[1].rank) {
-      bet(4000);
+    const [cardInHand1 ,cardInHand2] = hand;
+
+    // Checks if we have pair in hand
+    if (cardInHand1.rank === cardInHand2.rank) {
+      if (rank2number(cardInHand1.rank) >= 10) {
+        bet(4000); // max bet on pair 10 or above
+      } else {
+        bet(
+          gameState.current_buy_in - gameState.players[gameState.in_action].bet + gameState.minimum_raise
+        ); // bet minimum
+      }
     } else {
-      bet(0);
+      bet(0); // no pair = no bet
     }
   }
 
@@ -18,6 +27,31 @@ class Player {
 
   static getHand(gameState) {
     return gameState.players[gameState.in_action].hole_cards;
+  }
+
+  static getCommunity(gameState) {
+    return gameState.community_cards;
+  }
+
+  static getBothHandAndCommunity(gameState) {
+    let a = Player.getHand(gameState);
+    let b = Player.getCommunity(gameState);
+    return a.concat(b);
+  }
+}
+
+function rank2number(rank) {
+  switch(rank) {
+    case "A":
+      return 14;
+    case "K":
+      return 13;
+    case "Q":
+      return 12;
+    case "J":
+      return 11;
+    default:
+      return rank*1;
   }
 }
 
