@@ -15,7 +15,7 @@ class Player {
     if (theyAllSeemWeak(gameState)) return bet(gameState.current_buy_in * 2)
 
     // Checks if we have pair in hand
-    const pairValue = getPairValue(getBothHandAndCommunity(gameState));
+    const pairValue = getPairValue(getHand(gameState));
     if (pairValue > 0) {
       if (pairValue >= 10) {
         bet(4000); // max bet on pair 10 or above
