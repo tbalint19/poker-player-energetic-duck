@@ -5,7 +5,7 @@ class Player {
 
   // Game State URL: http://leanpoker.org/assets/player-api.json
   static betRequest(gameState, bet) {
-    const hand = getHand(gameState);
+    const hand = Player.getHand(gameState);
     if (hand[0].rank === hand[1].rank) {
       bet(4000);
     } else {
