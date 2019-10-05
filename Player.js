@@ -6,6 +6,7 @@ class Player {
   // Game State URL: http://leanpoker.org/assets/player-api.json
   static betRequest(gameState, bet) {
     const player = getPlayer(gameState);
+    const preFlop = gameState.community_cards.length === 0;
 
     if (gameState.small_blind * 4 > player.stack) return bet(4000);
 
@@ -31,6 +32,10 @@ class Player {
         }
       }
     } else {
+      if (preFlop && highCardInHand(gameState)) {
+        bet(gameState.current_buy_in - player.bet);
+      }
+
       bet(0); // no pair = no bet
     }
   }
@@ -134,6 +139,18 @@ function isAnotherPlayerAllIn(gameState) {
   });
 
   return isOneAllIn;
+}
+
+function highCardInHand(gameState) {
+  const hand = getHand(gameState);
+
+  hand.forEach(card => {
+    if (rank2number(card) > 10) {
+      return true;
+    }
+  });
+
+  return false;
 }
 
 
