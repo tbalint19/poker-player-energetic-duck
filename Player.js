@@ -23,8 +23,12 @@ class Player {
       getPairValue(getHand(gameState));
 
     if (pairValue > 0) {
-      if (pairValue >= 10) {
+      if (pairValue >= 12) {
         bet(4000); // max bet on pair 10 or above
+      } else if (pairValue >= 10) {
+        bet(
+          gameState.current_buy_in - player.bet + gameState.minimum_raise
+        );
       } else {
         if (isAnotherPlayerAllIn(gameState) && player.bet < 100) {
           bet(0);
