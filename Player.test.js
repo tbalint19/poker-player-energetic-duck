@@ -14,15 +14,15 @@ test('should not go all-in with low pair in hand', () => {
   gameState.community_cards = [];
   gameState.players[gameState.in_action].hole_cards[0] = { "rank": "6", "suit": "hearts" }
   gameState.players[gameState.in_action].hole_cards[1] = { "rank": "6", "suit": "spades" }
-  gameState.current_buy_in = 20
-  gameState.minimum_raise = 20
-  gameState.players[gameState.in_action].bet = 10
+  gameState.current_buy_in = 100
+  gameState.minimum_raise = 100
+  gameState.players[gameState.in_action].bet = 100
 
   // when
   Player.betRequest(gameState, betMock)
 
   // then
-  sinon.assert.calledWith(betMock, 30);
+  sinon.assert.calledWith(betMock, 100);
 })
 
 test('should go all-in with high pair in hand', () => {
@@ -45,9 +45,9 @@ test('should fold with low pair when another player is all in', () => {
   gameState.community_cards = [];
   gameState.players[gameState.in_action].hole_cards[0] = { "rank": "6", "suit": "hearts" }
   gameState.players[gameState.in_action].hole_cards[1] = { "rank": "6", "suit": "spades" }
-  gameState.current_buy_in = 20
-  gameState.minimum_raise = 20
-  gameState.players[gameState.in_action].bet = 10
+  gameState.current_buy_in = 100
+  gameState.minimum_raise = 100
+  gameState.players[gameState.in_action].bet = 100
   gameState.players[0].bet = gameState.players[0].stack
 
   // when
