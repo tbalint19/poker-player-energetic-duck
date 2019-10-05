@@ -28,6 +28,16 @@ class Player {
   static getHand(gameState) {
     return gameState.players[gameState.in_action].hole_cards;
   }
+
+  static getCommunity(gameState) {
+    return gameState.community_cards;
+  }
+
+  static getBothHandAndCommunity(gameState) {
+    let a = Player.getHand(gameState);
+    let b = Player.getCommunity(gameState);
+    return a.concat(b);
+  }
 }
 
 function rank2number(rank) {
