@@ -10,7 +10,7 @@ class Player {
     if (gameState.small_blind * 4 > player.stack) return bet(4000);
 
     if (
-      getThreeOfAKindValue(getBothHandAndCommunity(gameState)) > getThreeOfAKindValue(getCommunity(gameState))) {
+      getAtLeastThreeOfAKindValue(getBothHandAndCommunity(gameState)) > getAtLeastThreeOfAKindValue(getCommunity(gameState))) {
       return bet(4000);
     }
 
@@ -103,10 +103,10 @@ function getPairValue(cards) {
     return 0;
 }
 
-function getThreeOfAKindValue(cards) {
+function getAtLeastThreeOfAKindValue(cards) {
   let counts = getCardCounts(cards);
 
-  const matches = Array.from(counts.entries()).filter(x => x[1] === 3);
+  const matches = Array.from(counts.entries()).filter(x => x[1] >= 3);
   if(matches.length > 0)
     return matches.sort((a, b) => b[1] - a[1])[0][0];
   else
