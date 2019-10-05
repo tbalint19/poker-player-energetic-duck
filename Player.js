@@ -6,9 +6,9 @@ class Player {
   // Game State URL: http://leanpoker.org/assets/player-api.json
   static betRequest(gameState, bet) {
     const player = getPlayer(gameState);
-    
+
     // Checks if we have pair in hand
-    const pairValue = getPairValue();
+    const pairValue = getPairValue(gameState);
     if (pairValue > 0) {
       if (pairValue >= 10) {
         bet(4000); // max bet on pair 10 or above
