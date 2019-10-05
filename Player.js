@@ -17,7 +17,7 @@ class Player {
   }
 
   static getHand(gameState) {
-    gameState.players[gameState.in_action].hole_cards;
+    return gameState.players[gameState.in_action].hole_cards;
   }
 }
 
