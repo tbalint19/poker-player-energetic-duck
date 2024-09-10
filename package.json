@@ -11,7 +11,7 @@
   },
   "private": true,
   "dependencies": {
-    "body-parser": "1.15.2",
+    "body-parser": "1.20.3",
     "express": "4.x",
     "jest": "^24.9.0",
     "sinon": "^7.5.0"
